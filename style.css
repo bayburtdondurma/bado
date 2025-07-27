@@ -177,22 +177,34 @@ nav a:hover {
     padding: 50px;
     text-align: center;
 }
-
+.scroll-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 sütun */
+  gap: 15px 20px;
+  justify-items: center;
+  padding: 10px 0;
+}
 
 .menu-categories {
     margin-bottom: 20px;
 }
 .menu-btn {
-    background-color: #f0f0f0; /* Varsayılan renk */
-    border: none;
-    padding: 0; /* İç boşlukları kaldır */
-    cursor: pointer;
-    width: 150px; /* Sabit genişlik */
-    height: 50px; /* Sabit yükseklik */
-    display: inline-block; /* Butonların yan yana durması için */
-    text-align: center; /* Metni yatay olarak ortalamak için */
-    line-height: 50px; /* Yüksekliğe göre metni dikey olarak ortalamak için */
-    margin: 10px;
+  width: 160px;
+  height: 60px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: normal;         /* Satır sarması açık */
+  overflow: hidden;            /* Taşma gizle */
+  word-break: break-word;      /* Uzun kelimeler bölünsün */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1.2;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .menu-btn.active {
