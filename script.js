@@ -50,29 +50,27 @@ window.addEventListener('scroll', function () {
         backToTopButton.style.display = 'none';
     }
 });
-window.addEventListener('DOMContentLoaded', () => {
-  const scrollContainer = document.querySelector('.scroll-container');
-  if (scrollContainer) {
-    // Sadece mobilde çalıştır
-    if (window.innerWidth < 768) {
-      setTimeout(() => {
-        // Tüm sağa kaydır
-        scrollContainer.scrollTo({
-          left: scrollContainer.scrollWidth,
-          behavior: 'smooth'
-        });
+// window.addEventListener('DOMContentLoaded', () => {
+//   const scrollContainer = document.querySelector('.scroll-container');
+//   if (scrollContainer) {
+//     if (window.innerWidth < 768) {
+//       setTimeout(() => {
+//         scrollContainer.scrollTo({
+//           left: scrollContainer.scrollWidth,
+//           behavior: 'smooth'
+//         });
 
-        // Sonra geri başa kaydır
-        setTimeout(() => {
-          scrollContainer.scrollTo({
-            left: 0,
-            behavior: 'smooth'
-          });
-        }, 1000); // Geri dönüş süresi (ms cinsinden)
-      }, 800); // Sayfa yüklendikten sonra bekleme süresi
-    }
-  }
-});
+//         setTimeout(() => {
+//           scrollContainer.scrollTo({
+//             left: 0,
+//             behavior: 'smooth'
+//           });
+//         }, 1000);
+//       }, 800);
+//     }
+//   }
+// });
+
 
 // Menü kısmına yumuşak kaydırma
 function scrollToMenu(event) {
