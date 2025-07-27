@@ -149,7 +149,7 @@ nav a:hover {
     }
     .footer-container {
         flex-direction: column;
-        text-align: left;
+        text-align: center;
     }
     .hero {
         height: 50vh; /* Mobilde daha küçük bir yükseklik */
@@ -272,15 +272,14 @@ nav a:hover {
     opacity: 1;
 }
 .footer-column p {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
+  font-size: 14px;
+  line-height: 1.6;
 }
-
 .footer-icon {
-    width: 20px; /* İkon genişliği */
-    height: 20px; /* İkon yüksekliği */
-    margin-right: 10px; /* İkon ile metin arasında boşluk */
+  width: 18px;
+  margin-right: 10px;
+  vertical-align: middle;
+  filter: invert(100%); /* ikonlar açık zemin için beyaz oldu */
 }
 
 footer {
@@ -304,6 +303,13 @@ footer {
     padding: 10px;
     text-align: left; /* Yazıları sola yasla */
 }
+.footer-column h3 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  border-bottom: 2px solid #000000; /* vurgu için alt çizgi */
+  padding-bottom: 8px;
+}
+
 
 .divider {
     width: 1px; /* Çizgi kalınlığı */
@@ -339,6 +345,7 @@ footer {
     text-decoration: none;
     color: #333;
 }
+
 
 /* Diğer CSS kodların aynen kalacak */
 
