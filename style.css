@@ -522,35 +522,36 @@ footer p {
     margin-top: 15px;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .size-buttons button {
-    background: #ff4b2b; /* turuncu-kırmızı ton */
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
+    background: #fff;
+    color: #333;
+    border: 2px solid #d4af37; /* gold */
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .size-buttons button:hover {
-    background: #ff6f4d;
-    transform: scale(1.05);
+    background: #f8f4e3; /* çok hafif krem tonu */
+    transform: translateY(-2px);
 }
 
 .size-buttons button:active {
-    background: #e84318;
     transform: scale(0.95);
 }
 
-/* Aktif seçilen butona özel stil */
+/* Aktif seçilen buton */
 .size-buttons button.active {
-    background: #222;
-    color: #fff200; /* sarı */
+    background: #111; /* siyah */
+    color: #d4af37;   /* gold yazı */
+    border-color: #111;
 }
 
 
