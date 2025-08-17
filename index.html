@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/bado.png" type="image/png" sizes="48x48">
+    <title>BAYBURT DONDURMA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav>
+      <div class="logo">
+        <img src="images/bado.png" alt="Logo" />
+      </div>
+      <div class="nav-links">
+        <a href="#menu">MENÜ</a>
+        <a href="#iletisim">İLETİŞİM</a>
+      </div>
+      <div class="logo">
+        <img src="images/bado.png" alt="Logo" />
+      </div>
+    
+    </nav>
+    <div class="section" id="menu">
+        <h2>MENÜ</h2>
+        <div class="scroll-container">
+            <button class="menu-btn active" onclick="showMenu('dondurma',event)">DONDURMALAR</button>
+            <button class="menu-btn" onclick="showMenu('tatli',event)">TATLILAR</button>
+            <button class="menu-btn" onclick="showMenu('sicak',event)">SICAK İÇECEKLER</button>
+            <button class="menu-btn" onclick="showMenu('soguk',event)">SOĞUK İÇECEKLER</button>
+        </div>
+        <p class="info-text">! Dondurma fiyatları 1 top adeti içindir.</p>
+        <div class="menu-categories"></div>
+    </div>
+
+        <!--Dondurma-->
+        <div class="portfolio" id="dondurma-menu"  data-aos="fade-up">
+            <div class="portfolio-item">
+                <img src="images/dondurma.jpg" alt="Dondurma Menü 1">
+                <h3 style="margin-top: 20px;">DONDURMALAR</h3>
+            </div>
+        </div>    
+
+        <div class="portfolio" id="tatli-menu"style="display: none;">
+            <!-- tatlı Menüsü -->
+            <div class="portfolio-item">
+                <img src="images/kunefe.png" alt="Tatlı Menü 1" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">KÜNEFE</h3>
+                <p>175₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/fiskun.png" alt="Tatlı Menü 2" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">FISTIKLI KÜNEFE</h3>
+                <p>200₺</p>
+            </div>
+        </div>
+
+        
+
+        <!--sıcak içecekler-->
+        <div class="portfolio" id="sicak-menu" style="display: none;">
+            <div class="portfolio-item">
+                <img src="images/salep.png" alt="salep" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">SALEP</h3>
+                <p>100₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/espresso.png" alt="espresso" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">ESPRESSO</h3>
+                <p>80₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/cappu.png" alt="cappu" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">CAPPUCCINO</h3>
+                <p>80₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/latte.png" alt="latte" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">CAFFE LATTE</h3>
+                <p>80₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/lattema.png" alt="lattema" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">LATTE MACCHİATO</h3>
+                <p>80₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/sutluci.png" alt="sütlüci" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">SÜTLÜ SICAK ÇİKOLATA</h3>
+                <p>80₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/sutlunes.png" alt="sütlünes" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">SÜTLÜ NESCAFE</h3>
+                <p>75₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/cay.png" alt="cay" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">ÇAY</h3>
+                <p>25₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/bitki.png" alt="bitki" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">BİTKİ ÇAYLARI</h3>
+                <p>50₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/turkkahve.png" alt="turk" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">TÜRK KAHVESİ</h3>
+                <p>75₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/menengic.png" alt="menegic" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">MENENGİÇ KAHVESİ</h3>
+                <p>75₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/dibek.png" alt="dibek" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">DİBEK KAHVESİ</h3>
+                <p>75₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/damla.png" alt="damla" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">DAMLA SAKIZLI KAHVE</h3>
+                <p>75₺</p>
+            </div>
+        </div>
+        <!--soğuk içecekler-->
+        <div class="portfolio" id="soguk-menu" style="display: none;">
+            <div class="portfolio-item">
+                <img src="images/kola.png" alt="kutukola" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">KUTU KOLA</h3>
+                <p>50₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/sisekol.png" alt="sisekola" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">ŞİŞE KOLA</h3>
+                <p>40₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/gazoz.png" alt="fanta" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">GAZOZ</h3>
+                <p>50₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/camlica.png" alt="fanta" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">GAZOZ</h3>
+                <p>40₺</p>
+            </div>
+            <div class="portfolio-item" id="meyvesuyu-item">
+                <img id="meyvesuyu-img" src="images/meyvesuyu.png" alt="Meyve Suyu" data-aos="fade-up">
+                <h3 style="margin-top: 20px;" id="meyvesuyu-title">MEYVE SUYU (330 ml)</h3>
+                <p id="meyvesuyu-price">50₺</p>
+
+                <!-- Boyut Seçim Butonları -->
+                <div class="size-buttons">
+                    <button onclick="changeSize('meyvesuyu', 'buyuk')">Büyük</button>
+                    <button onclick="changeSize('meyvesuyu', 'kucuk')">Küçük</button>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/maltana.png" alt="maltana" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">MEYVE SUYU</h3>
+                <p>50₺</p>
+            </div>
+             <div class="portfolio-item">
+                <img src="images/soda.png" alt="soda" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">SODA</h3>
+                <p>25₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/meysoda.png" alt="meyveli soda" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">MEYVELİ SODA</h3>
+                <p>25₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/milkshake.png" alt="milkshake" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">MİLKSHAKE</h3>
+                <p>150₺</p>
+            </div>
+            <div class="portfolio-item">
+                <img src="images/su.png" alt="su" data-aos="fade-up">
+                <h3 style="margin-top: 20px;">SU</h3>
+                <p>10₺</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section" id="iletisim">
+        <h2></h2>
+        <p></p>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>HAKKIMIZDA</h3>
+                <p style="font-size: 13px;">Yılların ustalığıyla hazırlanan organik ve doğal Dondurma, özenle pişirilen Künefe ve mis kokulu gerçek Salep…
+Geleneksel lezzetleri, en kaliteli organik malzemeler ve titiz bir ustalıkla sizlere sunuyoruz...</p>
+            </div>
+            <div class="divider"></div>
+            <div class="footer-column">
+                <h3>İLETİŞİM</h3>
+                <a href="https://www.google.com/maps?q=BADO,+Zahit,+69000+Bayburt+Merkez/Bayburt" target="_blank" style="text-decoration: none; color: inherit;">
+                    <p style="font-size: 18px;">
+                        <img src="images/konum.png" alt="Adres İkonu" class="footer-icon">
+                        BADO <span class="info-text">(Konumu görmek için tıklayın!)</span>
+                    </p>
+                </a>
+                <p style="font-size: 18px;"><img src="images/phone.png" alt="Telefon İkonu" class="footer-icon">+90 544 434 00 69</p>
+            </div>
+
+            <div class="footer-column">
+            <h3>SOSYAL MEDYA</h3>
+            <div class="wrapper">
+                <div class="social-block">
+                <a href="https://www.instagram.com/bayburt_dondurma?igsh=MWtyZGJjb21ld256NA%3D%3D" target="_blank" class="icon instagram">
+                    <i class="fab fa-instagram"></i>
+                    <div class="tooltip">Instagram</div>
+                </a>
+                <span class="social-label">BADO</span>
+                </div>
+            </div>
+            </div>
+
+        </div>
+       
+        
+    </footer>
+
+
+    <button class="Btn" id="backToTop" onclick="scrollToMenu(event)">
+        <svg height="1.2em" class="arrow" viewBox="0 0 512 512">
+            <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path>
+        </svg>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+
+
+</body>
+</html>
