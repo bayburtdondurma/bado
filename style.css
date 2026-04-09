@@ -710,6 +710,20 @@ footer::before {
   box-shadow: 0 4px 14px rgba(201,125,58,0.35);
 }
 
+/* Admin butonu — çok soluk, dikkat çekmez */
+.admin-footer-btn {
+  opacity: 0.2 !important;
+  transition: opacity 0.3s !important;
+}
+
+.admin-footer-btn:hover {
+  opacity: 0.6 !important;
+  background: rgba(255,255,255,0.08) !important;
+  color: rgba(255,255,255,0.6) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* ════════════════════════════════════════════════
    BACK TO TOP
    ════════════════════════════════════════════════ */
