@@ -1,57 +1,67 @@
 /* ════════════════════════════════════════════════
-   BADO – script.js  |  Premium Edition
+   BADO – script.js
    ════════════════════════════════════════════════ */
 
 'use strict';
 
 /* ────────────────────────────────────────────────
    TAB YÖNETİMİ
+   data-tab attribute'u okuyarak çalışır.
+   HTML'de onclick kullanılmaz.
    ──────────────────────────────────────────────── */
 function initTabs() {
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const tabId = btn.dataset.tab;
 
+      // Tüm sekmeleri kapat
       document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-selected', 'false');
       });
 
+      // Seçilen sekmeyi aç
       const target = document.getElementById('tab-' + tabId);
       if (target) target.classList.add('active');
       btn.classList.add('active');
       btn.setAttribute('aria-selected', 'true');
 
+      // Butonu görünür alana kaydır (mobil)
       btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
+      // Layout hazır olduktan sonra carousel'ları yenile
       requestAnimationFrame(() => setTimeout(initAllCarousels, 50));
     });
   });
 }
 
 /* ────────────────────────────────────────────────
-   BOYUT SEÇİCİ
+   BOYUT SEÇİCİ (Meyve Suyu vb.)
+   data-price ve data-src attribute'larıyla çalışır.
    ──────────────────────────────────────────────── */
 function initSizePickers() {
   document.querySelectorAll('.size-btn').forEach(btn => {
     btn.addEventListener('click', e => {
-      e.stopPropagation();
+      e.stopPropagation(); // carousel sürüklemeyle çakışmasın
 
       const row = btn.closest('.size-row');
       if (!row) return;
 
+      // Seçimi güncelle
       row.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
       const card = btn.closest('.pcard');
       if (!card) return;
 
+      // Fiyatı güncelle
       const priceEl = card.querySelector('.pcard-price');
       if (priceEl && btn.dataset.price) {
         priceEl.textContent = btn.dataset.price;
       }
 
+      // Görseli güncelle (opsiyonel — data-src yoksa değiştirmez)
       const imgEl = card.querySelector('.pcard-img img');
       if (imgEl && btn.dataset.src) {
         imgEl.src = btn.dataset.src;
@@ -65,36 +75,64 @@ function initSizePickers() {
    ──────────────────────────────────────────────── */
 const inited = new Set();
 
+/**
+ * Tek bir carousel track'ini başlatır.
+ * @param {HTMLElement} track
+ */
 function initCarousel(track) {
-  const id    = track.dataset.carousel;
-  const cards = Array.from(track.querySelectorAll('.pcard'));
-  const dots  = document.getElementById('dots-' + id);
+  const id   = track.dataset.carousel;
+  const dots = document.getElementById('dots-' + id);
 
+  // Kartları her zaman DOM'dan taze oku
+  const cards = Array.from(track.querySelectorAll('.pcard'));
+
+  // Tek kart varsa direkt active
   if (cards.length <= 1) {
     cards.forEach(c => c.classList.add('active'));
     return;
   }
 
+  // Dot'ları oluştur (sadece bir kez)
   if (dots && dots.children.length === 0) {
     cards.forEach((_, i) => {
       const dot = document.createElement('div');
       dot.className = 'dot' + (i === 0 ? ' active' : '');
-      dot.addEventListener('click', () => scrollToCard(track, cards[i]));
+      dot.addEventListener('click', () => scrollToCard(track, Array.from(track.querySelectorAll('.pcard'))[i]));
       dots.appendChild(dot);
     });
   }
 
-  updateActive(track, cards, dots);
-  track.addEventListener('scroll', () => updateActive(track, cards, dots), { passive: true });
+  // İlk aktif kartı belirle
+  updateActive(track, dots);
+
+  // Scroll listener'ı yalnızca bir kez ekle — _scrollBound flag ile kontrol et
+  if (!track._scrollBound) {
+    track._scrollBound = true;
+    track.addEventListener('scroll', () => updateActive(track, dots), { passive: true });
+  }
+
+  // Masaüstü sürükleme
   enableDrag(track);
 }
 
+/**
+ * Kartı merkezde gösterecek şekilde scroll eder.
+ * @param {HTMLElement} track
+ * @param {HTMLElement} card
+ */
 function scrollToCard(track, card) {
   const target = card.offsetLeft - (track.offsetWidth - card.offsetWidth) / 2;
   track.scrollTo({ left: target, behavior: 'smooth' });
 }
 
-function updateActive(track, cards, dots) {
+/**
+ * Merkeze en yakın kartı .active yapar, dot'ları günceller.
+ * cards'ı her çağrıda DOM'dan taze okur — Firestore geç yüklense de sorun olmaz.
+ */
+function updateActive(track, dots) {
+  const cards  = Array.from(track.querySelectorAll('.pcard'));
+  if (!cards.length) return;
+
   const center = track.scrollLeft + track.offsetWidth / 2;
   let activeIdx = 0;
   let minDist   = Infinity;
@@ -113,7 +151,13 @@ function updateActive(track, cards, dots) {
   }
 }
 
+/**
+ * Masaüstü mouse sürükleme desteği.
+ */
 function enableDrag(track) {
+  if (track._dragBound) return;
+  track._dragBound = true;
+
   let isDragging = false;
   let startX, scrollLeft;
 
@@ -139,34 +183,18 @@ function enableDrag(track) {
   });
 }
 
+/**
+ * Sayfadaki tüm carousel'ları başlatır veya günceller.
+ * Tab geçişlerinde de çağrılır.
+ */
 function initAllCarousels() {
   document.querySelectorAll('.carousel-track').forEach(track => {
     if (!inited.has(track)) {
       inited.add(track);
-      initCarousel(track);
-    } else {
-      const id    = track.dataset.carousel;
-      const cards = Array.from(track.querySelectorAll('.pcard'));
-      const dots  = document.getElementById('dots-' + id);
-      updateActive(track, cards, dots);
     }
+    // Her zaman initCarousel çağır — içi zaten _scrollBound / _dragBound ile korumalı
+    initCarousel(track);
   });
-}
-
-/* ────────────────────────────────────────────────
-   HEADER SCROLL EFFECTi
-   Scroll aşağı inince header arka planı koyulaşır
-   ──────────────────────────────────────────────── */
-function initHeaderScroll() {
-  const header = document.getElementById('site-header');
-  if (!header) return;
-
-  const onScroll = () => {
-    header.classList.toggle('scrolled', window.scrollY > 10);
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // Sayfa yükleme anında da kontrol et
 }
 
 /* ────────────────────────────────────────────────
@@ -177,47 +205,11 @@ function initBackToTop() {
   if (!btn) return;
 
   window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 240);
-  }, { passive: true });
+    btn.classList.toggle('visible', window.scrollY > 220);
+  });
 
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-/* ────────────────────────────────────────────────
-   SCROLL REVEAL — sub-label ve sec-head için
-   IntersectionObserver ile hafif appear animasyonu
-   ──────────────────────────────────────────────── */
-function initScrollReveal() {
-  if (!('IntersectionObserver' in window)) return;
-
-  const style = document.createElement('style');
-  style.textContent = `
-    .reveal-item {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-    .reveal-item.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  `;
-  document.head.appendChild(style);
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.sub-label, .sec-head').forEach(el => {
-    el.classList.add('reveal-item');
-    observer.observe(el);
   });
 }
 
@@ -229,8 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSizePickers();
   initAllCarousels();
   initBackToTop();
-  initHeaderScroll();
-  initScrollReveal();
 
   // Footer yılını dinamik yap
   const yearEl = document.getElementById('footer-year');
