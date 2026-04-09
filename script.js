@@ -214,6 +214,33 @@ function initBackToTop() {
 }
 
 /* ────────────────────────────────────────────────
+   GİZLİ ADMİN ERİŞİMİ
+   Footer'daki copyright yazısına 3 kez tıklayınca
+   admin paneline yönlendirir.
+   ──────────────────────────────────────────────── */
+function initSecretAdmin() {
+  const el = document.getElementById('footer-copy');
+  if (!el) return;
+
+  let clickCount = 0;
+  let timer;
+
+  el.addEventListener('click', () => {
+    clickCount++;
+    clearTimeout(timer);
+
+    if (clickCount >= 3) {
+      clickCount = 0;
+      window.open('admin.html', '_blank');
+      return;
+    }
+
+    // 1 saniye içinde 3 tıklama olmazsa sıfırla
+    timer = setTimeout(() => { clickCount = 0; }, 1000);
+  });
+}
+
+/* ────────────────────────────────────────────────
    BAŞLAT
    ──────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -221,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSizePickers();
   initAllCarousels();
   initBackToTop();
+  initSecretAdmin();
 
   // Footer yılını dinamik yap
   const yearEl = document.getElementById('footer-year');
