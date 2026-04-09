@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BADO – Bayburt Dondurma</title>
+  <meta name="description" content="Bayburt'un en lezzetli organik dondurması, sıcak künefesi ve geleneksel kahveleri. BADO ile tatlı bir mola verin." />
+  <meta property="og:title"       content="BADO – Bayburt Dondurma" />
+  <meta property="og:description" content="Organik dondurma, künefe ve mis kokulu gerçek salep. Geleneksel lezzetler, en kaliteli malzemelerle." />
+  <meta property="og:type"        content="website" />
+  <meta property="og:image"       content="images/dondurma.jpg" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/" onclick="window.location.reload(); return false;">
+      <div class="brand-icon">
+        <img src="images/bado.png" alt="BADO Logo" style="width:100%; height:100%; object-fit:contain; border-radius:50%;" onerror="this.outerHTML='🍦'" />
+      </div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="brand-name">BADO</span>
+          <img src="images/ask.png" alt="Bado Ek Logo" class="brand-inline-logo" />
+        </div>
+        <span class="brand-sub">Bayburt Dondurma</span>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <a href="tel:+905444340069" class="header-icon-btn" title="Bizi Ara" aria-label="Bizi ara">
+        <i class="fa-solid fa-phone"></i>
+      </a>
+      <a href="admin.html" target="_blank" class="header-icon-btn admin-btn" title="Admin Paneli" aria-label="Admin paneli">
+        <i class="fa-solid fa-circle-user"></i>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-wrapper" id="tabs-wrapper">
+  <div class="tabs" role="tablist" aria-label="Menü kategorileri">
+    <button class="tab-btn active" data-tab="dondurma" role="tab" aria-selected="true"  aria-controls="tab-dondurma"><span class="tab-icon">🍦</span><span class="tab-label">Dondurmalar</span></button>
+    <button class="tab-btn"        data-tab="tatli"    role="tab" aria-selected="false" aria-controls="tab-tatli"><span class="tab-icon">🍮</span><span class="tab-label">Tatlılar</span></button>
+    <button class="tab-btn"        data-tab="sicak"    role="tab" aria-selected="false" aria-controls="tab-sicak"><span class="tab-icon">☕</span><span class="tab-label">Sıcak İçecekler</span></button>
+    <button class="tab-btn"        data-tab="soguk"    role="tab" aria-selected="false" aria-controls="tab-soguk"><span class="tab-icon">🥤</span><span class="tab-label">Soğuk İçecekler</span></button>
+  </div>
+</div>
+
+<main>
+
+  <!-- ── DONDURMALAR ── -->
+  <div class="menu-section active" id="tab-dondurma" role="tabpanel">
+    <div class="sec-head"><h2>Dondurmalar</h2></div>
+    <div class="info-note">
+      <i class="fa-solid fa-circle-info"></i>
+      Fiyatlar 1 top (adet) için geçerlidir.
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="dondurma" id="track-dondurma">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-dondurma"></div>
+    </div>
+  </div>
+
+  <!-- ── TATLILAR ── -->
+  <div class="menu-section" id="tab-tatli" role="tabpanel">
+    <div class="sec-head"><h2>Tatlılar</h2></div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="tatli" id="track-tatli">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-tatli"></div>
+    </div>
+  </div>
+
+  <!-- ── SICAK İÇECEKLER ── -->
+  <div class="menu-section" id="tab-sicak" role="tabpanel">
+    <div class="sec-head"><h2>Sıcak İçecekler</h2></div>
+
+    <div class="sub-label">Kahveler</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="kahve" id="track-kahve">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-kahve"></div>
+    </div>
+
+    <div class="sub-label">Geleneksel Kahveler</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="geleneksel" id="track-geleneksel">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-geleneksel"></div>
+    </div>
+
+    <div class="sub-label">Çaylar & Diğer</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="cay" id="track-cay">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-cay"></div>
+    </div>
+  </div>
+
+  <!-- ── SOĞUK İÇECEKLER ── -->
+  <div class="menu-section" id="tab-soguk" role="tabpanel">
+    <div class="sec-head"><h2>Soğuk İçecekler</h2></div>
+
+    <div class="sub-label">Gazlı İçecekler</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="gazli" id="track-gazli">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-gazli"></div>
+    </div>
+
+    <div class="sub-label">Meyve Suları</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="meyve" id="track-meyve">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-meyve"></div>
+    </div>
+
+    <div class="sub-label">Sodalar</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="soda" id="track-soda">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-soda"></div>
+    </div>
+
+    <div class="sub-label">Özel İçecekler</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="ozel" id="track-ozel">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-ozel"></div>
+    </div>
+
+    <div class="sub-label">Diğer</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="diger" id="track-diger">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-diger"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">BADO</div>
+    <p class="footer-tagline"><em>Gelenekten gelen lezzet</em></p>
+    <p class="footer-desc">
+      Yılların ustalığıyla hazırlanan organik ve doğal dondurma, özenle pişirilen künefe
+      ve mis kokulu gerçek salep. Geleneksel lezzetleri en kaliteli malzemelerle sunuyoruz.
+    </p>
+    <div class="footer-links">
+      <a class="footer-link"
+         href="https://www.google.com/maps?q=BADO,+Zahit,+69000+Bayburt+Merkez/Bayburt"
+         target="_blank">
+        <i class="fa-solid fa-location-dot"></i> Zahit Mah. Bayburt Merkez — Konuma git
+      </a>
+      <a class="footer-link" href="tel:+905444340069">
+        <i class="fa-solid fa-phone"></i> +90 544 434 00 69
+      </a>
+    </div>
+    <hr class="footer-hr" />
+    <div class="footer-bottom">
+      <span class="footer-copy">© <span id="footer-year"></span> BADO – Tüm hakları saklıdır.</span>
+      <div class="socials">
+        <a href="https://www.instagram.com/bado_bayburt?igsh=MWtyZGJjb21ld256NA==" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-top" aria-label="Yukarı çık">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<script src="script.js"></script>
+
+<!-- Firebase: Menüyü tamamen Firestore'dan yükle -->
+<script type="module">
+  import { initializeApp }   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getFirestore, collection, getDocs, query, orderBy }
+    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyBbI8mSPI3dMy8wQtaRHIkvKlc5VgXvJak",
+    authDomain:        "bado-menu.firebaseapp.com",
+    projectId:         "bado-menu",
+    storageBucket:     "bado-menu.firebasestorage.app",
+    messagingSenderId: "617263213035",
+    appId:             "1:617263213035:web:466bfced3e0062c24f11ae"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  function makeCard(item) {
+    const isWide = item.category === 'dondurma' || item.category === 'tatli';
+
+    let imgHtml;
+    if (item.imageData) {
+      imgHtml = `<img src="${item.imageData}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>🍽️</div>'" />`;
+    } else if (item.image) {
+      imgHtml = `<img src="images/${item.image}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>🍽️</div>'" />`;
+    } else {
+      imgHtml = `<div class="no-img">🍽️</div>`;
+    }
+
+    const variantsHtml = item.variants?.length
+      ? `<div class="variants-row">${item.variants.map(v => `<span class="v-tag">${v}</span>`).join('')}</div>`
+      : '';
+
+    const sizesHtml = item.sizes?.length
+      ? `<div class="size-row">${item.sizes.map((s, i) =>
+          `<button class="size-btn${i === 0 ? ' active' : ''}" data-price="${s.price}" data-src="images/${s.image}">
+            <span>${s.label}</span><span class="sz-p">${s.price}</span>
+          </button>`
+        ).join('')}</div>`
+      : '';
+
+    const flavorClass = item.flavorClass ? ` pcard-flavor ${item.flavorClass}` : '';
+
+    return `
+      <div class="pcard${isWide ? ' pcard-wide' : ''}${flavorClass}" data-id="${item.id}">
+        <div class="pcard-img">${imgHtml}</div>
+        <div class="pcard-overlay"></div>
+        <div class="pcard-body">
+          <div class="pcard-name">${item.name}</div>
+          <div class="pcard-price">${item.price}</div>
+          ${variantsHtml}
+          ${sizesHtml}
+        </div>
+      </div>`;
+  }
+
+  async function loadMenu() {
+    try {
+      const q    = query(collection(db, 'menu'), orderBy('displayOrder', 'asc'));
+      const snap = await getDocs(q);
+
+      document.querySelectorAll('.carousel-track').forEach(t => t.innerHTML = '');
+
+      if (snap.empty) {
+        document.querySelectorAll('.carousel-track').forEach(t => {
+          t.innerHTML = '<div style="padding:20px;color:#8a7d6b;font-size:13px;">Henüz ürün eklenmemiş.</div>';
+        });
+        return;
+      }
+
+      snap.docs.forEach(d => {
+        const item  = { id: d.id, ...d.data() };
+        const track = document.getElementById('track-' + item.category);
+        if (!track) return;
+        track.insertAdjacentHTML('beforeend', makeCard(item));
+      });
+
+      if (typeof initAllCarousels === 'function')  initAllCarousels();
+      if (typeof initSizePickers  === 'function')  initSizePickers();
+
+    } catch (e) {
+      if (e.code === 'failed-precondition' || e.message.includes('index')) {
+        await loadMenuFallback();
+      } else {
+        await loadMenuFallback();
+      }
+    }
+  }
+
+  async function loadMenuFallback() {
+    try {
+      const q    = query(collection(db, 'menu'), orderBy('createdAt', 'asc'));
+      const snap = await getDocs(q);
+
+      document.querySelectorAll('.carousel-track').forEach(t => t.innerHTML = '');
+
+      snap.docs.forEach(d => {
+        const item  = { id: d.id, ...d.data() };
+        const track = document.getElementById('track-' + item.category);
+        if (!track) return;
+        track.insertAdjacentHTML('beforeend', makeCard(item));
+      });
+
+      if (typeof initAllCarousels === 'function') initAllCarousels();
+      if (typeof initSizePickers  === 'function') initSizePickers();
+    } catch (e) {
+      console.warn('Fallback yüklenemedi:', e.message);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadMenu);
+</script>
+
+<style>
+  .menu-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--cw, 230px);
+    height: var(--ch, 310px);
+  }
+  .menu-spinner {
+    width: 28px; height: 28px;
+    border: 3px solid #e8dfd0;
+    border-top-color: #c97d3a;
+    border-radius: 50%;
+    animation: menuSpin 0.7s linear infinite;
+  }
+  @keyframes menuSpin { to { transform: rotate(360deg); } }
+</style>
+
+</body>
+</html>
