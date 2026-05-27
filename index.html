@@ -47,6 +47,7 @@
     <button class="tab-btn"        data-tab="tatli"    role="tab" aria-selected="false" aria-controls="tab-tatli"><span class="tab-icon">🍮</span><span class="tab-label">Tatlılar</span></button>
     <button class="tab-btn"        data-tab="sicak"    role="tab" aria-selected="false" aria-controls="tab-sicak"><span class="tab-icon">☕</span><span class="tab-label">Sıcak İçecekler</span></button>
     <button class="tab-btn"        data-tab="soguk"    role="tab" aria-selected="false" aria-controls="tab-soguk"><span class="tab-icon">🥤</span><span class="tab-label">Soğuk İçecekler</span></button>
+    <button class="tab-btn"        data-tab="yiyecek"  role="tab" aria-selected="false" aria-controls="tab-yiyecek"><span class="tab-icon">🍽️</span><span class="tab-label">Yiyecekler</span></button>
   </div>
 </div>
 
@@ -153,6 +154,36 @@
 
   </div>
 
+  <!-- ── YİYECEKLER ── -->
+  <div class="menu-section" id="tab-yiyecek" role="tabpanel">
+    <div class="sec-head"><h2>Yiyecekler</h2></div>
+
+    <div class="sub-label">Atıştırmalıklar</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="atistirmalik" id="track-atistirmalik">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-atistirmalik"></div>
+    </div>
+
+    <div class="sub-label">Kahvaltılıklar</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="kahvaltilik" id="track-kahvaltilik">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-kahvaltilik"></div>
+    </div>
+
+    <div class="sub-label">Yemekler</div>
+    <div class="carousel-wrap">
+      <div class="carousel-track" data-carousel="yemek" id="track-yemek">
+        <div class="menu-loading"><div class="menu-spinner"></div></div>
+      </div>
+      <div class="carousel-dots" id="dots-yemek"></div>
+    </div>
+
+  </div>
+
 </main>
 
 <footer>
@@ -212,20 +243,11 @@
   function makeCard(item) {
     const isWide = item.category === 'dondurma' || item.category === 'tatli';
 
-    // Meyve suyu kategorisinde sizes varsa sadece ilk (büyük) boyutun görselini kullan
-    const isMeyve = item.category === 'meyve';
-    const effectiveImage = isMeyve && item.sizes?.length
-      ? item.sizes[0].image
-      : item.image;
-    const effectivePrice = (isMeyve && !item.price && item.sizes?.length)
-      ? item.sizes[0].price
-      : item.price;
-
     let imgHtml;
     if (item.imageData) {
       imgHtml = `<img src="${item.imageData}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>🍽️</div>'" />`;
-    } else if (effectiveImage) {
-      imgHtml = `<img src="images/${effectiveImage}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>🍽️</div>'" />`;
+    } else if (item.image) {
+      imgHtml = `<img src="images/${item.image}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>🍽️</div>'" />`;
     } else {
       imgHtml = `<div class="no-img">🍽️</div>`;
     }
@@ -234,8 +256,7 @@
       ? `<div class="variants-row">${item.variants.map(v => `<span class="v-tag">${v}</span>`).join('')}</div>`
       : '';
 
-    // Meyve suyu kategorisinde boyut butonları gösterilmez
-    const sizesHtml = (!isMeyve && item.sizes?.length)
+    const sizesHtml = item.sizes?.length
       ? `<div class="size-row">${item.sizes.map((s, i) =>
           `<button class="size-btn${i === 0 ? ' active' : ''}" data-price="${s.price}" data-src="images/${s.image}">
             <span>${s.label}</span><span class="sz-p">${s.price}</span>
@@ -251,7 +272,7 @@
         <div class="pcard-overlay"></div>
         <div class="pcard-body">
           <div class="pcard-name">${item.name}</div>
-          <div class="pcard-price">${isMeyve ? effectivePrice : item.price}</div>
+          <div class="pcard-price">${item.price}</div>
           ${variantsHtml}
           ${sizesHtml}
         </div>
