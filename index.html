@@ -212,11 +212,20 @@
   function makeCard(item) {
     const isWide = item.category === 'dondurma' || item.category === 'tatli';
 
+    // Meyve suyu kategorisinde sizes varsa sadece ilk (büyük) boyutun görselini kullan
+    const isMeyve = item.category === 'meyve';
+    const effectiveImage = isMeyve && item.sizes?.length
+      ? item.sizes[0].image
+      : item.image;
+    const effectivePrice = isMeyve && item.sizes?.length
+      ? item.sizes[0].price
+      : item.price;
+
     let imgHtml;
     if (item.imageData) {
       imgHtml = `<img src="${item.imageData}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>🍽️</div>'" />`;
-    } else if (item.image) {
-      imgHtml = `<img src="images/${item.image}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>🍽️</div>'" />`;
+    } else if (effectiveImage) {
+      imgHtml = `<img src="images/${effectiveImage}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>🍽️</div>'" />`;
     } else {
       imgHtml = `<div class="no-img">🍽️</div>`;
     }
@@ -225,7 +234,8 @@
       ? `<div class="variants-row">${item.variants.map(v => `<span class="v-tag">${v}</span>`).join('')}</div>`
       : '';
 
-    const sizesHtml = item.sizes?.length
+    // Meyve suyu kategorisinde boyut butonları gösterilmez
+    const sizesHtml = (!isMeyve && item.sizes?.length)
       ? `<div class="size-row">${item.sizes.map((s, i) =>
           `<button class="size-btn${i === 0 ? ' active' : ''}" data-price="${s.price}" data-src="images/${s.image}">
             <span>${s.label}</span><span class="sz-p">${s.price}</span>
@@ -241,7 +251,7 @@
         <div class="pcard-overlay"></div>
         <div class="pcard-body">
           <div class="pcard-name">${item.name}</div>
-          <div class="pcard-price">${item.price}</div>
+          <div class="pcard-price">${isMeyve ? effectivePrice : item.price}</div>
           ${variantsHtml}
           ${sizesHtml}
         </div>
