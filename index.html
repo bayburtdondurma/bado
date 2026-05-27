@@ -217,7 +217,7 @@
     const effectiveImage = isMeyve && item.sizes?.length
       ? item.sizes[0].image
       : item.image;
-    const effectivePrice = isMeyve && item.sizes?.length
+    const effectivePrice = (isMeyve && !item.price && item.sizes?.length)
       ? item.sizes[0].price
       : item.price;
 
