@@ -206,25 +206,78 @@
     }
 
     /* ════════════════════════════
-       ADMIN TABS
+       ADMIN TABS — GRUPLANMİŞ
     ════════════════════════════ */
     .admin-tabs {
       display: flex;
+      flex-direction: column;
       gap: 6px;
       margin-bottom: 24px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 2px;
-      cursor: grab;
-      user-select: none;
     }
 
-    .admin-tabs.grabbing { cursor: grabbing; }
-    .admin-tabs::-webkit-scrollbar { display: none; }
+    /* Ana menü butonu */
+    .admin-group-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+    }
+
+    .admin-group-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .admin-group-btn.open {
+      border-color: var(--accent);
+      background: var(--accent-light);
+      color: var(--accent);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-color: transparent;
+    }
+
+    .admin-group-btn .group-arrow {
+      font-size: 11px;
+      transition: transform 0.22s;
+      color: var(--muted);
+    }
+
+    .admin-group-btn.open .group-arrow {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
+    /* Alt kategori satırı */
+    .admin-sub-tabs {
+      display: none;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 14px 12px;
+      border: 1.5px solid var(--accent);
+      border-top: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      background: var(--accent-light);
+      margin-top: -1px;
+    }
+
+    .admin-sub-tabs.open { display: flex; }
 
     .admin-tab {
       flex-shrink: 0;
-      padding: 7px 16px;
+      padding: 6px 14px;
       border: 1.5px solid var(--border);
       border-radius: 20px;
       background: var(--white);
@@ -852,6 +905,9 @@
             <option value="soda">💧 Sodalar</option>
             <option value="ozel">✨ Özel İçecekler</option>
             <option value="diger">💧 Diğer</option>
+            <option value="atistirmalik">🍟 Atıştırmalıklar</option>
+            <option value="kahvaltilik">🍳 Kahvaltılıklar</option>
+            <option value="yemek">🍽️ Yemekler</option>
           </select>
         </div>
       </div>
@@ -944,6 +1000,9 @@
           <option value="soda">💧 Sodalar</option>
           <option value="ozel">✨ Özel İçecekler</option>
           <option value="diger">💧 Diğer</option>
+          <option value="atistirmalik">🍟 Atıştırmalıklar</option>
+          <option value="kahvaltilik">🍳 Kahvaltılıklar</option>
+          <option value="yemek">🍽️ Yemekler</option>
         </select>
       </div>
     </div>
@@ -1017,6 +1076,9 @@
     { id: 'soda',       label: '💧 Sodalar' },
     { id: 'ozel',       label: '✨ Özel İçecekler' },
     { id: 'diger',      label: '💧 Diğer' },
+    { id: 'atistirmalik', label: '🍟 Atıştırmalıklar' },
+    { id: 'kahvaltilik',  label: '🍳 Kahvaltılıklar' },
+    { id: 'yemek',        label: '🍽️ Yemekler' },
   ];
 
   let allItems       = [];
@@ -1174,28 +1236,84 @@
 
   /* ── Tab drag ── */
   function initTabDrag() {
-    const wrap = document.getElementById('admin-tabs');
-    let isDragging = false, startX, scrollLeft;
-    wrap.addEventListener('mousedown', e => { isDragging = true; wrap.classList.add('grabbing'); startX = e.pageX - wrap.offsetLeft; scrollLeft = wrap.scrollLeft; });
-    ['mouseleave', 'mouseup'].forEach(ev => wrap.addEventListener(ev, () => { isDragging = false; wrap.classList.remove('grabbing'); }));
-    wrap.addEventListener('mousemove', e => { if (!isDragging) return; e.preventDefault(); const x = e.pageX - wrap.offsetLeft; wrap.scrollLeft = scrollLeft - (x - startX) * 1.2; });
+    // Drag artık yok — accordion kullanılıyor
   }
 
-  /* ── Tabs ── */
+  /* ── Tabs — Gruplu Accordion ── */
+  const GROUPS = [
+    { label: '🍦 Dondurmalar',     cats: ['dondurma'] },
+    { label: '🍮 Tatlılar',        cats: ['tatli'] },
+    { label: '☕ Sıcak İçecekler', cats: ['kahve', 'geleneksel', 'cay'] },
+    { label: '🥤 Soğuk İçecekler', cats: ['gazli', 'meyve', 'soda', 'ozel', 'diger'] },
+    { label: '🍽️ Yiyecekler',      cats: ['atistirmalik', 'kahvaltilik', 'yemek'] },
+  ];
+
   function buildTabs() {
     const wrap = document.getElementById('admin-tabs');
     wrap.innerHTML = '';
-    CATEGORIES.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className   = 'admin-tab' + (cat.id === activeCategory ? ' active' : '');
-      btn.textContent = cat.label;
-      btn.onclick     = () => {
-        activeCategory = cat.id;
-        document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderItems();
-      };
-      wrap.appendChild(btn);
+
+    GROUPS.forEach(group => {
+      const isGroupActive = group.cats.includes(activeCategory);
+      const isSingle      = group.cats.length === 1;
+
+      // Ana menü butonu
+      const groupBtn = document.createElement('button');
+      groupBtn.className = 'admin-group-btn' + (isGroupActive ? ' open' : '');
+      groupBtn.innerHTML = `
+        <span>${group.label}</span>
+        ${isSingle ? '' : '<i class="fa-solid fa-chevron-down group-arrow"></i>'}
+      `;
+
+      if (isSingle) {
+        // Tek kategorili grup: direkt seç, accordion yok
+        const catId = group.cats[0];
+        groupBtn.addEventListener('click', () => {
+          activeCategory = catId;
+          document.querySelectorAll('.admin-group-btn').forEach(b => b.classList.remove('open'));
+          groupBtn.classList.add('open');
+          renderItems();
+        });
+        wrap.appendChild(groupBtn);
+        return;
+      }
+
+      // Alt tab satırı
+      const subRow = document.createElement('div');
+      subRow.className = 'admin-sub-tabs' + (isGroupActive ? ' open' : '');
+
+      groupBtn.addEventListener('click', () => {
+        const wasOpen = subRow.classList.contains('open');
+        document.querySelectorAll('.admin-group-btn').forEach(b => b.classList.remove('open'));
+        document.querySelectorAll('.admin-sub-tabs').forEach(s => s.classList.remove('open'));
+        if (!wasOpen) {
+          groupBtn.classList.add('open');
+          subRow.classList.add('open');
+          if (!group.cats.includes(activeCategory)) {
+            activeCategory = group.cats[0];
+            renderItems();
+          }
+        }
+      });
+
+      group.cats.forEach(catId => {
+        const cat = CATEGORIES.find(c => c.id === catId);
+        if (!cat) return;
+        const shortLabel = cat.label.replace(/^[\p{Emoji}\s]+/u, '').trim();
+        const btn = document.createElement('button');
+        btn.className   = 'admin-tab' + (catId === activeCategory ? ' active' : '');
+        btn.textContent = shortLabel;
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          activeCategory = catId;
+          document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderItems();
+        };
+        subRow.appendChild(btn);
+      });
+
+      wrap.appendChild(groupBtn);
+      wrap.appendChild(subRow);
     });
   }
 
