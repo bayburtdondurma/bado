@@ -36,39 +36,7 @@ function initTabs() {
   });
 }
 
-/* ────────────────────────────────────────────────
-   BOYUT SEÇİCİ (Meyve Suyu vb.)
-   data-price ve data-src attribute'larıyla çalışır.
-   ──────────────────────────────────────────────── */
-function initSizePickers() {
-  document.querySelectorAll('.size-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.stopPropagation(); // carousel sürüklemeyle çakışmasın
 
-      const row = btn.closest('.size-row');
-      if (!row) return;
-
-      // Seçimi güncelle
-      row.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const card = btn.closest('.pcard');
-      if (!card) return;
-
-      // Fiyatı güncelle
-      const priceEl = card.querySelector('.pcard-price');
-      if (priceEl && btn.dataset.price) {
-        priceEl.textContent = btn.dataset.price;
-      }
-
-      // Görseli güncelle (opsiyonel — data-src yoksa değiştirmez)
-      const imgEl = card.querySelector('.pcard-img img');
-      if (imgEl && btn.dataset.src) {
-        imgEl.src = btn.dataset.src;
-      }
-    });
-  });
-}
 
 /* ────────────────────────────────────────────────
    SPOTLIGHT CAROUSEL
@@ -245,7 +213,6 @@ function initSecretAdmin() {
    ──────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
-  initSizePickers();
   initAllCarousels();
   initBackToTop();
   initSecretAdmin();
