@@ -463,45 +463,7 @@ main {
   transition: background 0.2s;
 }
 
-/* ════════════════════════════════════════════════
-   BOYUT SEÇİCİ
-   ════════════════════════════════════════════════ */
-.size-row {
-  display: flex;
-  gap: 6px;
-  margin-top: 8px;
-}
 
-.size-btn {
-  flex: 1;
-  padding: 5px 0;
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
-  border-radius: 9px;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-}
-
-.size-btn .sz-p {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--gold);
-}
-
-.size-btn.active {
-  border-color: var(--gold);
-  background: rgba(0, 0, 0, 0.52);
-}
 
 /* ════════════════════════════════════════════════
    CAROUSEL DOTS
