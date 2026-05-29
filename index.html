@@ -256,13 +256,7 @@
       ? `<div class="variants-row">${item.variants.map(v => `<span class="v-tag">${v}</span>`).join('')}</div>`
       : '';
 
-    const sizesHtml = item.sizes?.length
-      ? `<div class="size-row">${item.sizes.map((s, i) =>
-          `<button class="size-btn${i === 0 ? ' active' : ''}" data-price="${s.price}" data-src="images/${s.image}">
-            <span>${s.label}</span><span class="sz-p">${s.price}</span>
-          </button>`
-        ).join('')}</div>`
-      : '';
+
 
     const flavorClass = item.flavorClass ? ` pcard-flavor ${item.flavorClass}` : '';
 
@@ -274,7 +268,6 @@
           <div class="pcard-name">${item.name}</div>
           <div class="pcard-price">${item.price}</div>
           ${variantsHtml}
-          ${sizesHtml}
         </div>
       </div>`;
   }
@@ -301,7 +294,6 @@
       });
 
       if (typeof initAllCarousels === 'function')  initAllCarousels();
-      if (typeof initSizePickers  === 'function')  initSizePickers();
 
     } catch (e) {
       if (e.code === 'failed-precondition' || e.message.includes('index')) {
@@ -327,7 +319,6 @@
       });
 
       if (typeof initAllCarousels === 'function') initAllCarousels();
-      if (typeof initSizePickers  === 'function') initSizePickers();
     } catch (e) {
       console.warn('Fallback yüklenemedi:', e.message);
     }
