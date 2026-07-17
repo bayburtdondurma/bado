@@ -9,6 +9,30 @@
    data-tab attribute'u okuyarak çalışır.
    HTML'de onclick kullanılmaz.
    ──────────────────────────────────────────────── */
+/**
+ * Sayfayı, sticky tabs-wrapper header'ın hemen altına gelecek şekilde
+ * kaydırır. Böylece kullanıcı önceki sekmede sayfanın altındayken
+ * yeni bir sekmeye geçtiğinde, yeni sekme en baştan görünür.
+ */
+function scrollTabsToTop() {
+  const tabsWrapper = document.getElementById('tabs-wrapper');
+  if (!tabsWrapper) return;
+
+  const headerH = parseInt(
+    getComputedStyle(document.documentElement).getPropertyValue('--header-h')
+  ) || 64;
+
+  // offsetTop, sticky konumlanmadan bağımsız olarak elementin normal
+  // akıştaki (document) konumunu verir — bu yüzden scroll pozisyonundan
+  // etkilenmez ve güvenilir bir hedef sağlar.
+  const targetY = Math.max(tabsWrapper.offsetTop - headerH, 0);
+
+  // Sadece mevcut konum hedeften farklıysa kaydır (gereksiz titremeyi önler)
+  if (Math.abs(window.scrollY - targetY) > 4) {
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+  }
+}
+
 function initTabs() {
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -29,6 +53,10 @@ function initTabs() {
 
       // Butonu görünür alana kaydır (mobil)
       btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+      // Sayfayı yeni sekmenin en üstüne kaydır (kullanıcı önceki sekmede
+      // aşağıda kalmış olsa bile yeni sekme baştan görünsün)
+      scrollTabsToTop();
 
       // Layout hazır olduktan sonra carousel'ları yenile
       requestAnimationFrame(() => setTimeout(initAllCarousels, 50));
